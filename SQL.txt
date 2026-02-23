@@ -1,0 +1,802 @@
+mysql> show tables;
+ERROR 1046 (3D000): No database selected
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| rays               |
+| sys                |
++--------------------+
+5 rows in set (0.11 sec)
+
+mysql> show tables;
+ERROR 1046 (3D000): No database selected
+mysql> use rays;
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_rays |
++----------------+
+| employee       |
+| shopping       |
++----------------+
+2 rows in set (0.08 sec)
+
+mysql> show columns from employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id      | int         | YES  |     | NULL    |       |
+| name    | varchar(50) | YES  |     | NULL    |       |
+| company | varchar(50) | YES  |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.05 sec)
+
+mysql> INSERT INTO employee VALUES (3,'Amit','Wipro',48000),(4,'Rohit','HCL',52000),(5,'Suresh','Tech Mahindra',47000),(6,'Neha','TCS',55000),(7,'Priya','Infosys',60000),(8,'Ankit','Accenture',58000),(9,'Pooja','Capgemini',50000),(10,'Vikas','IBM',65000),(11,'Sunita','Cognizant',62000),(12,'Ravi','L&T',54000),(13,'Karan','Mindtree',51000),(14,'Meena','Persistent',49000),(15,'Deepak','Oracle',70000),(16,'Nitin','Google',120000),(17,'Anjali','Microsoft',110000);
+Query OK, 15 rows affected (0.02 sec)
+Records: 15  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> select*from employee
+    -> ^C
+mysql> select*from employee;
++------+--------+---------------+--------+
+| id   | name   | company       | salary |
++------+--------+---------------+--------+
+|    1 | rajni  | tcs           |   4500 |
+|    3 | suraj  | xyz           |  35000 |
+|    2 | ram    | abc           |  23000 |
+|    3 | Amit   | Wipro         |  48000 |
+|    4 | Rohit  | HCL           |  52000 |
+|    5 | Suresh | Tech Mahindra |  47000 |
+|    6 | Neha   | TCS           |  55000 |
+|    7 | Priya  | Infosys       |  60000 |
+|    8 | Ankit  | Accenture     |  58000 |
+|    9 | Pooja  | Capgemini     |  50000 |
+|   10 | Vikas  | IBM           |  65000 |
+|   11 | Sunita | Cognizant     |  62000 |
+|   12 | Ravi   | L&T           |  54000 |
+|   13 | Karan  | Mindtree      |  51000 |
+|   14 | Meena  | Persistent    |  49000 |
+|   15 | Deepak | Oracle        |  70000 |
+|   16 | Nitin  | Google        | 120000 |
+|   17 | Anjali | Microsoft     | 110000 |
++------+--------+---------------+--------+
+18 rows in set (0.00 sec)
+
+mysql> delete from employee where name = 'suraj';
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from employee;
++------+--------+---------------+--------+
+| id   | name   | company       | salary |
++------+--------+---------------+--------+
+|    1 | rajni  | tcs           |   4500 |
+|    2 | ram    | abc           |  23000 |
+|    3 | Amit   | Wipro         |  48000 |
+|    4 | Rohit  | HCL           |  52000 |
+|    5 | Suresh | Tech Mahindra |  47000 |
+|    6 | Neha   | TCS           |  55000 |
+|    7 | Priya  | Infosys       |  60000 |
+|    8 | Ankit  | Accenture     |  58000 |
+|    9 | Pooja  | Capgemini     |  50000 |
+|   10 | Vikas  | IBM           |  65000 |
+|   11 | Sunita | Cognizant     |  62000 |
+|   12 | Ravi   | L&T           |  54000 |
+|   13 | Karan  | Mindtree      |  51000 |
+|   14 | Meena  | Persistent    |  49000 |
+|   15 | Deepak | Oracle        |  70000 |
+|   16 | Nitin  | Google        | 120000 |
+|   17 | Anjali | Microsoft     | 110000 |
++------+--------+---------------+--------+
+17 rows in set (0.00 sec)
+
+mysql> select from employee where name = 'ram';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from employee where name = 'ram'' at line 1
+mysql> select * from employee where name = 'ram';
++------+------+---------+--------+
+| id   | name | company | salary |
++------+------+---------+--------+
+|    2 | ram  | abc     |  23000 |
++------+------+---------+--------+
+1 row in set (0.00 sec)
+
+mysql> select* from employee where salary > 70000;
++------+--------+-----------+--------+
+| id   | name   | company   | salary |
++------+--------+-----------+--------+
+|   16 | Nitin  | Google    | 120000 |
+|   17 | Anjali | Microsoft | 110000 |
++------+--------+-----------+--------+
+2 rows in set (0.01 sec)
+
+mysql> select * from employee salary < 40000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '< 40000' at line 1
+mysql> select * from employee where salary < 40000;
++------+-------+---------+--------+
+| id   | name  | company | salary |
++------+-------+---------+--------+
+|    1 | rajni | tcs     |   4500 |
+|    2 | ram   | abc     |  23000 |
++------+-------+---------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employee where name like 's%';
++------+--------+---------------+--------+
+| id   | name   | company       | salary |
++------+--------+---------------+--------+
+|    5 | Suresh | Tech Mahindra |  47000 |
+|   11 | Sunita | Cognizant     |  62000 |
++------+--------+---------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select* from employee where name = '%s%';
+Empty set (0.00 sec)
+
+mysql> select * from employee where name like '%s%';
++------+--------+---------------+--------+
+| id   | name   | company       | salary |
++------+--------+---------------+--------+
+|    5 | Suresh | Tech Mahindra |  47000 |
+|   10 | Vikas  | IBM           |  65000 |
+|   11 | Sunita | Cognizant     |  62000 |
++------+--------+---------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select*from employee limit 0,5;
++------+--------+---------------+--------+
+| id   | name   | company       | salary |
++------+--------+---------------+--------+
+|    1 | rajni  | tcs           |   4500 |
+|    2 | ram    | abc           |  23000 |
+|    3 | Amit   | Wipro         |  48000 |
+|    4 | Rohit  | HCL           |  52000 |
+|    5 | Suresh | Tech Mahindra |  47000 |
++------+--------+---------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select*from employee limit 10,15;
++------+--------+------------+--------+
+| id   | name   | company    | salary |
++------+--------+------------+--------+
+|   11 | Sunita | Cognizant  |  62000 |
+|   12 | Ravi   | L&T        |  54000 |
+|   13 | Karan  | Mindtree   |  51000 |
+|   14 | Meena  | Persistent |  49000 |
+|   15 | Deepak | Oracle     |  70000 |
+|   16 | Nitin  | Google     | 120000 |
+|   17 | Anjali | Microsoft  | 110000 |
++------+--------+------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select*from employee order by salary desc limit 0,5;
++------+--------+-----------+--------+
+| id   | name   | company   | salary |
++------+--------+-----------+--------+
+|   16 | Nitin  | Google    | 120000 |
+|   17 | Anjali | Microsoft | 110000 |
+|   15 | Deepak | Oracle    |  70000 |
+|   10 | Vikas  | IBM       |  65000 |
+|   11 | Sunita | Cognizant |  62000 |
++------+--------+-----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select*from employee order b y asc limit10,15
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'b y asc limit10,15' at line 1
+mysql> select*from employee order by asc limit 10,15;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'asc limit 10,15' at line 1
+mysql> select * from employee order by salary asc limit 10,15;
++------+--------+-----------+--------+
+| id   | name   | company   | salary |
++------+--------+-----------+--------+
+|    8 | Ankit  | Accenture |  58000 |
+|    7 | Priya  | Infosys   |  60000 |
+|   11 | Sunita | Cognizant |  62000 |
+|   10 | Vikas  | IBM       |  65000 |
+|   15 | Deepak | Oracle    |  70000 |
+|   17 | Anjali | Microsoft | 110000 |
+|   16 | Nitin  | Google    | 120000 |
++------+--------+-----------+--------+
+7 rows in set (0.04 sec)
+
+mysql> select * from employee order by salary asc limit 10,5;
++------+--------+-----------+--------+
+| id   | name   | company   | salary |
++------+--------+-----------+--------+
+|    8 | Ankit  | Accenture |  58000 |
+|    7 | Priya  | Infosys   |  60000 |
+|   11 | Sunita | Cognizant |  62000 |
+|   10 | Vikas  | IBM       |  65000 |
+|   15 | Deepak | Oracle    |  70000 |
++------+--------+-----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select*from employee order by salary asc limit 5,15;
++------+--------+-----------+--------+
+| id   | name   | company   | salary |
++------+--------+-----------+--------+
+|    9 | Pooja  | Capgemini |  50000 |
+|   13 | Karan  | Mindtree  |  51000 |
+|    4 | Rohit  | HCL       |  52000 |
+|   12 | Ravi   | L&T       |  54000 |
+|    6 | Neha   | TCS       |  55000 |
+|    8 | Ankit  | Accenture |  58000 |
+|    7 | Priya  | Infosys   |  60000 |
+|   11 | Sunita | Cognizant |  62000 |
+|   10 | Vikas  | IBM       |  65000 |
+|   15 | Deepak | Oracle    |  70000 |
+|   17 | Anjali | Microsoft | 110000 |
+|   16 | Nitin  | Google    | 120000 |
++------+--------+-----------+--------+
+12 rows in set (0.00 sec)
+
+mysql> select*from employee order by salary asc limit 5,7;
++------+-------+-----------+--------+
+| id   | name  | company   | salary |
++------+-------+-----------+--------+
+|    9 | Pooja | Capgemini |  50000 |
+|   13 | Karan | Mindtree  |  51000 |
+|    4 | Rohit | HCL       |  52000 |
+|   12 | Ravi  | L&T       |  54000 |
+|    6 | Neha  | TCS       |  55000 |
+|    8 | Ankit | Accenture |  58000 |
+|    7 | Priya | Infosys   |  60000 |
++------+-------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select count(*) from employee;
++----------+
+| count(*) |
++----------+
+|       17 |
++----------+
+1 row in set (0.02 sec)
+
+mysql> select sum(salary) from employee;
++-------------+
+| sum(salary) |
++-------------+
+|      978500 |
++-------------+
+1 row in set (0.01 sec)
+
+mysql> select min(salary) from employee;
++-------------+
+| min(salary) |
++-------------+
+|        4500 |
++-------------+
+1 row in set (0.01 sec)
+
+mysql> select max(salary) from employee;
++-------------+
+| max(salary) |
++-------------+
+|      120000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(salary) from employee;
++-------------+
+| avg(salary) |
++-------------+
+|  57558.8235 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select company, count(*) from employee group by company;
++---------------+----------+
+| company       | count(*) |
++---------------+----------+
+| tcs           |        2 |
+| abc           |        1 |
+| Wipro         |        1 |
+| HCL           |        1 |
+| Tech Mahindra |        1 |
+| Infosys       |        1 |
+| Accenture     |        1 |
+| Capgemini     |        1 |
+| IBM           |        1 |
+| Cognizant     |        1 |
+| L&T           |        1 |
+| Mindtree      |        1 |
+| Persistent    |        1 |
+| Oracle        |        1 |
+| Google        |        1 |
+| Microsoft     |        1 |
++---------------+----------+
+16 rows in set (0.01 sec)
+
+mysql> select*from employee;
++------+--------+---------------+--------+
+| id   | name   | company       | salary |
++------+--------+---------------+--------+
+|    1 | rajni  | tcs           |   4500 |
+|    2 | ram    | abc           |  23000 |
+|    3 | Amit   | Wipro         |  48000 |
+|    4 | Rohit  | HCL           |  52000 |
+|    5 | Suresh | Tech Mahindra |  47000 |
+|    6 | Neha   | TCS           |  55000 |
+|    7 | Priya  | Infosys       |  60000 |
+|    8 | Ankit  | Accenture     |  58000 |
+|    9 | Pooja  | Capgemini     |  50000 |
+|   10 | Vikas  | IBM           |  65000 |
+|   11 | Sunita | Cognizant     |  62000 |
+|   12 | Ravi   | L&T           |  54000 |
+|   13 | Karan  | Mindtree      |  51000 |
+|   14 | Meena  | Persistent    |  49000 |
+|   15 | Deepak | Oracle        |  70000 |
+|   16 | Nitin  | Google        | 120000 |
+|   17 | Anjali | Microsoft     | 110000 |
++------+--------+---------------+--------+
+17 rows in set (0.00 sec)
+
+mysql> select*from employee order by salary asc limit 5,15;
++------+--------+-----------+--------+
+| id   | name   | company   | salary |
++------+--------+-----------+--------+
+|    9 | Pooja  | Capgemini |  50000 |
+|   13 | Karan  | Mindtree  |  51000 |
+|    4 | Rohit  | HCL       |  52000 |
+|   12 | Ravi   | L&T       |  54000 |
+|    6 | Neha   | TCS       |  55000 |
+|    8 | Ankit  | Accenture |  58000 |
+|    7 | Priya  | Infosys   |  60000 |
+|   11 | Sunita | Cognizant |  62000 |
+|   10 | Vikas  | IBM       |  65000 |
+|   15 | Deepak | Oracle    |  70000 |
+|   17 | Anjali | Microsoft | 110000 |
+|   16 | Nitin  | Google    | 120000 |
++------+--------+-----------+--------+
+12 rows in set (0.00 sec)
+
+mysql> select*from employee order by salary asc limit 10,6;
++------+--------+-----------+--------+
+| id   | name   | company   | salary |
++------+--------+-----------+--------+
+|    8 | Ankit  | Accenture |  58000 |
+|    7 | Priya  | Infosys   |  60000 |
+|   11 | Sunita | Cognizant |  62000 |
+|   10 | Vikas  | IBM       |  65000 |
+|   15 | Deepak | Oracle    |  70000 |
+|   17 | Anjali | Microsoft | 110000 |
++------+--------+-----------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select*from employee  limit 10,6;
++------+--------+------------+--------+
+| id   | name   | company    | salary |
++------+--------+------------+--------+
+|   11 | Sunita | Cognizant  |  62000 |
+|   12 | Ravi   | L&T        |  54000 |
+|   13 | Karan  | Mindtree   |  51000 |
+|   14 | Meena  | Persistent |  49000 |
+|   15 | Deepak | Oracle     |  70000 |
+|   16 | Nitin  | Google     | 120000 |
++------+--------+------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select*from employee  limit 10,10;
++------+--------+------------+--------+
+| id   | name   | company    | salary |
++------+--------+------------+--------+
+|   11 | Sunita | Cognizant  |  62000 |
+|   12 | Ravi   | L&T        |  54000 |
+|   13 | Karan  | Mindtree   |  51000 |
+|   14 | Meena  | Persistent |  49000 |
+|   15 | Deepak | Oracle     |  70000 |
+|   16 | Nitin  | Google     | 120000 |
+|   17 | Anjali | Microsoft  | 110000 |
++------+--------+------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> selct*from employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selct*from employee' at line 1
+mysql> select name , company from employee;
++--------+---------------+
+| name   | company       |
++--------+---------------+
+| rajni  | tcs           |
+| ram    | abc           |
+| Amit   | Wipro         |
+| Rohit  | HCL           |
+| Suresh | Tech Mahindra |
+| Neha   | TCS           |
+| Priya  | Infosys       |
+| Ankit  | Accenture     |
+| Pooja  | Capgemini     |
+| Vikas  | IBM           |
+| Sunita | Cognizant     |
+| Ravi   | L&T           |
+| Karan  | Mindtree      |
+| Meena  | Persistent    |
+| Deepak | Oracle        |
+| Nitin  | Google        |
+| Anjali | Microsoft     |
++--------+---------------+
+17 rows in set (0.02 sec)
+
+mysql> use rays;
+Database changed
+mysql> create table department(dept_id int primary key, dept_name varchar(45));
+Query OK, 0 rows affected (0.29 sec)
+
+mysql> create table employee(id int primary key, name varchar(45), department int, foreign key(department) references department(dept_id));
+ERROR 1050 (42S01): Table 'employee' already exists
+mysql> create table foreign_key_concept(id int primary key, name varchar(45), department int, foreign key(department) references department(dept_id));
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> insert into department values(1,'Finance'), (2,'HR'), (3,'Developer'), (4, 'Admin'), (5, 'Sales');
+Query OK, 5 rows affected (0.05 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into foreign_key_concept values(1,'Ram',3),(2,'Adhiraj',3),(3,'Mudita',2),(4,'shruti',5),(4,'Anmol',1);
+ERROR 1062 (23000): Duplicate entry '4' for key 'foreign_key_concept.PRIMARY'
+mysql> insert into foreign_key_concept values(1,'Ram',3),(2,'Adhiraj',3),(3,'Mudita',2),(4,'shruti',5),(5,'Anmol',1);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select*from department;
++---------+-----------+
+| dept_id | dept_name |
++---------+-----------+
+|       1 | Finance   |
+|       2 | HR        |
+|       3 | Developer |
+|       4 | Admin     |
+|       5 | Sales     |
++---------+-----------+
+5 rows in set (0.05 sec)
+
+mysql> select*from foreign_key_concept;
++----+---------+------------+
+| id | name    | department |
++----+---------+------------+
+|  1 | Ram     |          3 |
+|  2 | Adhiraj |          3 |
+|  3 | Mudita  |          2 |
+|  4 | shruti  |          5 |
+|  5 | Anmol   |          1 |
++----+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select* from employee;
++------+--------+---------------+--------+
+| id   | name   | company       | salary |
++------+--------+---------------+--------+
+|    1 | rajni  | tcs           |   4500 |
+|    2 | ram    | abc           |  23000 |
+|    3 | Amit   | Wipro         |  48000 |
+|    4 | Rohit  | HCL           |  52000 |
+|    5 | Suresh | Tech Mahindra |  47000 |
+|    6 | Neha   | TCS           |  55000 |
+|    7 | Priya  | Infosys       |  60000 |
+|    8 | Ankit  | Accenture     |  58000 |
+|    9 | Pooja  | Capgemini     |  50000 |
+|   10 | Vikas  | IBM           |  65000 |
+|   11 | Sunita | Cognizant     |  62000 |
+|   12 | Ravi   | L&T           |  54000 |
+|   13 | Karan  | Mindtree      |  51000 |
+|   14 | Meena  | Persistent    |  49000 |
+|   15 | Deepak | Oracle        |  70000 |
+|   16 | Nitin  | Google        | 120000 |
+|   17 | Anjali | Microsoft     | 110000 |
++------+--------+---------------+--------+
+17 rows in set (0.05 sec)
+
+mysql> select*from department;
++---------+-----------+
+| dept_id | dept_name |
++---------+-----------+
+|       1 | Finance   |
+|       2 | HR        |
+|       3 | Developer |
+|       4 | Admin     |
+|       5 | Sales     |
++---------+-----------+
+5 rows in set (0.01 sec)
+
+mysql> alter table employee add dept_id int;
+Query OK, 0 rows affected (0.23 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select *from employee;
++------+--------+---------------+--------+---------+
+| id   | name   | company       | salary | dept_id |
++------+--------+---------------+--------+---------+
+|    1 | rajni  | tcs           |   4500 |    NULL |
+|    2 | ram    | abc           |  23000 |    NULL |
+|    3 | Amit   | Wipro         |  48000 |    NULL |
+|    4 | Rohit  | HCL           |  52000 |    NULL |
+|    5 | Suresh | Tech Mahindra |  47000 |    NULL |
+|    6 | Neha   | TCS           |  55000 |    NULL |
+|    7 | Priya  | Infosys       |  60000 |    NULL |
+|    8 | Ankit  | Accenture     |  58000 |    NULL |
+|    9 | Pooja  | Capgemini     |  50000 |    NULL |
+|   10 | Vikas  | IBM           |  65000 |    NULL |
+|   11 | Sunita | Cognizant     |  62000 |    NULL |
+|   12 | Ravi   | L&T           |  54000 |    NULL |
+|   13 | Karan  | Mindtree      |  51000 |    NULL |
+|   14 | Meena  | Persistent    |  49000 |    NULL |
+|   15 | Deepak | Oracle        |  70000 |    NULL |
+|   16 | Nitin  | Google        | 120000 |    NULL |
+|   17 | Anjali | Microsoft     | 110000 |    NULL |
++------+--------+---------------+--------+---------+
+17 rows in set (0.00 sec)
+
+mysql> alter table employee add foreign key(dept_id) references department(id);
+ERROR 3734 (HY000): Failed to add the foreign key constraint. Missing column 'id' for constraint 'employee_ibfk_1' in the referenced table 'department'
+mysql> alter table employee add foreign key(dept_id) references department(dept_id);
+Query OK, 17 rows affected (0.10 sec)
+Records: 17  Duplicates: 0  Warnings: 0
+
+mysql> select*from department;
++---------+-----------+
+| dept_id | dept_name |
++---------+-----------+
+|       1 | Finance   |
+|       2 | HR        |
+|       3 | Developer |
+|       4 | Admin     |
+|       5 | Sales     |
++---------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> update employee set dept_id = 2 where id = 1;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from employee;
++------+--------+---------------+--------+---------+
+| id   | name   | company       | salary | dept_id |
++------+--------+---------------+--------+---------+
+|    1 | rajni  | tcs           |   4500 |       2 |
+|    2 | ram    | abc           |  23000 |    NULL |
+|    3 | Amit   | Wipro         |  48000 |    NULL |
+|    4 | Rohit  | HCL           |  52000 |    NULL |
+|    5 | Suresh | Tech Mahindra |  47000 |    NULL |
+|    6 | Neha   | TCS           |  55000 |    NULL |
+|    7 | Priya  | Infosys       |  60000 |    NULL |
+|    8 | Ankit  | Accenture     |  58000 |    NULL |
+|    9 | Pooja  | Capgemini     |  50000 |    NULL |
+|   10 | Vikas  | IBM           |  65000 |    NULL |
+|   11 | Sunita | Cognizant     |  62000 |    NULL |
+|   12 | Ravi   | L&T           |  54000 |    NULL |
+|   13 | Karan  | Mindtree      |  51000 |    NULL |
+|   14 | Meena  | Persistent    |  49000 |    NULL |
+|   15 | Deepak | Oracle        |  70000 |    NULL |
+|   16 | Nitin  | Google        | 120000 |    NULL |
+|   17 | Anjali | Microsoft     | 110000 |    NULL |
++------+--------+---------------+--------+---------+
+17 rows in set (0.01 sec)
+
+mysql> select*from department;
++---------+-----------+
+| dept_id | dept_name |
++---------+-----------+
+|       1 | Finance   |
+|       2 | HR        |
+|       3 | Developer |
+|       4 | Admin     |
+|       5 | Sales     |
++---------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> update employee set dept_id = 5 where id = 2;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from employee;
++------+--------+---------------+--------+---------+
+| id   | name   | company       | salary | dept_id |
++------+--------+---------------+--------+---------+
+|    1 | rajni  | tcs           |   4500 |       2 |
+|    2 | ram    | abc           |  23000 |       5 |
+|    3 | Amit   | Wipro         |  48000 |    NULL |
+|    4 | Rohit  | HCL           |  52000 |    NULL |
+|    5 | Suresh | Tech Mahindra |  47000 |    NULL |
+|    6 | Neha   | TCS           |  55000 |    NULL |
+|    7 | Priya  | Infosys       |  60000 |    NULL |
+|    8 | Ankit  | Accenture     |  58000 |    NULL |
+|    9 | Pooja  | Capgemini     |  50000 |    NULL |
+|   10 | Vikas  | IBM           |  65000 |    NULL |
+|   11 | Sunita | Cognizant     |  62000 |    NULL |
+|   12 | Ravi   | L&T           |  54000 |    NULL |
+|   13 | Karan  | Mindtree      |  51000 |    NULL |
+|   14 | Meena  | Persistent    |  49000 |    NULL |
+|   15 | Deepak | Oracle        |  70000 |    NULL |
+|   16 | Nitin  | Google        | 120000 |    NULL |
+|   17 | Anjali | Microsoft     | 110000 |    NULL |
++------+--------+---------------+--------+---------+
+17 rows in set (0.00 sec)
+
+mysql> update employee set dept_id=1 where id =6;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set dept_id =2 where id =5;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from employee;
++------+--------+---------------+--------+---------+
+| id   | name   | company       | salary | dept_id |
++------+--------+---------------+--------+---------+
+|    1 | rajni  | tcs           |   4500 |       2 |
+|    2 | ram    | abc           |  23000 |       5 |
+|    3 | Amit   | Wipro         |  48000 |    NULL |
+|    4 | Rohit  | HCL           |  52000 |    NULL |
+|    5 | Suresh | Tech Mahindra |  47000 |       2 |
+|    6 | Neha   | TCS           |  55000 |       1 |
+|    7 | Priya  | Infosys       |  60000 |    NULL |
+|    8 | Ankit  | Accenture     |  58000 |    NULL |
+|    9 | Pooja  | Capgemini     |  50000 |    NULL |
+|   10 | Vikas  | IBM           |  65000 |    NULL |
+|   11 | Sunita | Cognizant     |  62000 |    NULL |
+|   12 | Ravi   | L&T           |  54000 |    NULL |
+|   13 | Karan  | Mindtree      |  51000 |    NULL |
+|   14 | Meena  | Persistent    |  49000 |    NULL |
+|   15 | Deepak | Oracle        |  70000 |    NULL |
+|   16 | Nitin  | Google        | 120000 |    NULL |
+|   17 | Anjali | Microsoft     | 110000 |    NULL |
++------+--------+---------------+--------+---------+
+17 rows in set (0.00 sec)
+
+mysql> create table marksheet(id int primary key, rollno int, name varchar(45), phy int, chem int, maths int);
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> insert into marksheetvalues(1,101,'Ram', 46,35,56);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1,101,'Ram', 46,35,56)' at line 1
+mysql> insert into marksheet values (1,101,'Ram', 46,35,56);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> selct*from marksheet;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selct*from marksheet' at line 1
+mysql> select*from marksheet;
++----+--------+------+------+------+-------+
+| id | rollno | name | phy  | chem | maths |
++----+--------+------+------+------+-------+
+|  1 |    101 | Ram  |   46 |   35 |    56 |
++----+--------+------+------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> insert into marksheet values(2,'Shyam',76,45,84),(3,'Shruti',45,73,63),(4,'Mudita',45,36,84);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql>  insert into marksheet values(2,102,'Shyam',76,45,84),(3,103,'Shruti',45,73,63),(4,104,'Mudita',45,36,84);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select*from marksheet;
++----+--------+--------+------+------+-------+
+| id | rollno | name   | phy  | chem | maths |
++----+--------+--------+------+------+-------+
+|  1 |    101 | Ram    |   46 |   35 |    56 |
+|  2 |    102 | Shyam  |   76 |   45 |    84 |
+|  3 |    103 | Shruti |   45 |   73 |    63 |
+|  4 |    104 | Mudita |   45 |   36 |    84 |
++----+--------+--------+------+------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select*,(phy+chem+maths) as total ,marksheet;
+ERROR 1096 (HY000): No tables used
+mysql> select*, (phy+chem+maths) as total from marksheet;
++----+--------+--------+------+------+-------+-------+
+| id | rollno | name   | phy  | chem | maths | total |
++----+--------+--------+------+------+-------+-------+
+|  1 |    101 | Ram    |   46 |   35 |    56 |   137 |
+|  2 |    102 | Shyam  |   76 |   45 |    84 |   205 |
+|  3 |    103 | Shruti |   45 |   73 |    63 |   181 |
+|  4 |    104 | Mudita |   45 |   36 |    84 |   165 |
++----+--------+--------+------+------+-------+-------+
+4 rows in set (0.01 sec)
+
+mysql> select*, ((phy+chem+maths)/3) as percentage from marksheet;
++----+--------+--------+------+------+-------+------------+
+| id | rollno | name   | phy  | chem | maths | percentage |
++----+--------+--------+------+------+-------+------------+
+|  1 |    101 | Ram    |   46 |   35 |    56 |    45.6667 |
+|  2 |    102 | Shyam  |   76 |   45 |    84 |    68.3333 |
+|  3 |    103 | Shruti |   45 |   73 |    63 |    60.3333 |
+|  4 |    104 | Mudita |   45 |   36 |    84 |    55.0000 |
++----+--------+--------+------+------+-------+------------+
+4 rows in set (0.01 sec)
+
+mysql> select*, (phy+chem+maths) as total, ((phy+chem+maths/3)) as percentage from marksheet;
++----+--------+--------+------+------+-------+-------+------------+
+| id | rollno | name   | phy  | chem | maths | total | percentage |
++----+--------+--------+------+------+-------+-------+------------+
+|  1 |    101 | Ram    |   46 |   35 |    56 |   137 |    99.6667 |
+|  2 |    102 | Shyam  |   76 |   45 |    84 |   205 |   149.0000 |
+|  3 |    103 | Shruti |   45 |   73 |    63 |   181 |   139.0000 |
+|  4 |    104 | Mudita |   45 |   36 |    84 |   165 |   109.0000 |
++----+--------+--------+------+------+-------+-------+------------+
+4 rows in set (0.04 sec)
+
+mysql> select*, (phy+chem+maths) as total, ((phy+chem+maths)/3) as percentage from marksheet;
++----+--------+--------+------+------+-------+-------+------------+
+| id | rollno | name   | phy  | chem | maths | total | percentage |
++----+--------+--------+------+------+-------+-------+------------+
+|  1 |    101 | Ram    |   46 |   35 |    56 |   137 |    45.6667 |
+|  2 |    102 | Shyam  |   76 |   45 |    84 |   205 |    68.3333 |
+|  3 |    103 | Shruti |   45 |   73 |    63 |   181 |    60.3333 |
+|  4 |    104 | Mudita |   45 |   36 |    84 |   165 |    55.0000 |
++----+--------+--------+------+------+-------+-------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select*, (phy+chem+maths) as total, ((phy+chem+maths)/3) as percentage, if (phy >= 33 and chem >= 33 and maths >= 33, 'pass', 'fail') from marksheet;
++----+--------+--------+------+------+-------+-------+------------+---------------------------------------------------------------+
+| id | rollno | name   | phy  | chem | maths | total | percentage | if (phy >= 33 and chem >= 33 and maths >= 33, 'pass', 'fail') |
++----+--------+--------+------+------+-------+-------+------------+---------------------------------------------------------------+
+|  1 |    101 | Ram    |   46 |   35 |    56 |   137 |    45.6667 | pass                                                          |
+|  2 |    102 | Shyam  |   76 |   45 |    84 |   205 |    68.3333 | pass                                                          |
+|  3 |    103 | Shruti |   45 |   73 |    63 |   181 |    60.3333 | pass                                                          |
+|  4 |    104 | Mudita |   45 |   36 |    84 |   165 |    55.0000 | pass                                                          |
++----+--------+--------+------+------+-------+-------+------------+---------------------------------------------------------------+
+4 rows in set (0.01 sec)
+
+mysql> insert into marksheet values(5,105,'Rahul', 43,23,16),(6,106,'Adhiraj',73,34,35),(7,107,'Anmol',54,46,25);
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select*, (phy+chem+maths) as total from marksheet;
++----+--------+---------+------+------+-------+-------+
+| id | rollno | name    | phy  | chem | maths | total |
++----+--------+---------+------+------+-------+-------+
+|  1 |    101 | Ram     |   46 |   35 |    56 |   137 |
+|  2 |    102 | Shyam   |   76 |   45 |    84 |   205 |
+|  3 |    103 | Shruti  |   45 |   73 |    63 |   181 |
+|  4 |    104 | Mudita  |   45 |   36 |    84 |   165 |
+|  5 |    105 | Rahul   |   43 |   23 |    16 |    82 |
+|  6 |    106 | Adhiraj |   73 |   34 |    35 |   142 |
+|  7 |    107 | Anmol   |   54 |   46 |    25 |   125 |
++----+--------+---------+------+------+-------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select*, ((phy+chem+maths)/3) as percentage from marksheet;
++----+--------+---------+------+------+-------+------------+
+| id | rollno | name    | phy  | chem | maths | percentage |
++----+--------+---------+------+------+-------+------------+
+|  1 |    101 | Ram     |   46 |   35 |    56 |    45.6667 |
+|  2 |    102 | Shyam   |   76 |   45 |    84 |    68.3333 |
+|  3 |    103 | Shruti  |   45 |   73 |    63 |    60.3333 |
+|  4 |    104 | Mudita  |   45 |   36 |    84 |    55.0000 |
+|  5 |    105 | Rahul   |   43 |   23 |    16 |    27.3333 |
+|  6 |    106 | Adhiraj |   73 |   34 |    35 |    47.3333 |
+|  7 |    107 | Anmol   |   54 |   46 |    25 |    41.6667 |
++----+--------+---------+------+------+-------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select*, (phy+chem+maths) as total, ((phy+chem+maths)/3) as percentage from marksheet;
++----+--------+---------+------+------+-------+-------+------------+
+| id | rollno | name    | phy  | chem | maths | total | percentage |
++----+--------+---------+------+------+-------+-------+------------+
+|  1 |    101 | Ram     |   46 |   35 |    56 |   137 |    45.6667 |
+|  2 |    102 | Shyam   |   76 |   45 |    84 |   205 |    68.3333 |
+|  3 |    103 | Shruti  |   45 |   73 |    63 |   181 |    60.3333 |
+|  4 |    104 | Mudita  |   45 |   36 |    84 |   165 |    55.0000 |
+|  5 |    105 | Rahul   |   43 |   23 |    16 |    82 |    27.3333 |
+|  6 |    106 | Adhiraj |   73 |   34 |    35 |   142 |    47.3333 |
+|  7 |    107 | Anmol   |   54 |   46 |    25 |   125 |    41.6667 |
++----+--------+---------+------+------+-------+-------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select*, (phy+chem+maths) as total, ((phy+chem+maths)/3) as percentage, (if phy >= 33 and chem >= 33 and maths >= 33,'pass','fail')as result from marksheet;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'phy >= 33 and chem >= 33 and maths >= 33,'pass','fail')as result from marksheet' at line 1
+mysql> select*, (phy+chem+maths) as total, ((phy+chem+maths)/3) as percentage, if (phy >= 33 and chem >= 33 and maths >= 33,'pass','fail')as result from marksheet;
++----+--------+---------+------+------+-------+-------+------------+--------+
+| id | rollno | name    | phy  | chem | maths | total | percentage | result |
++----+--------+---------+------+------+-------+-------+------------+--------+
+|  1 |    101 | Ram     |   46 |   35 |    56 |   137 |    45.6667 | pass   |
+|  2 |    102 | Shyam   |   76 |   45 |    84 |   205 |    68.3333 | pass   |
+|  3 |    103 | Shruti  |   45 |   73 |    63 |   181 |    60.3333 | pass   |
+|  4 |    104 | Mudita  |   45 |   36 |    84 |   165 |    55.0000 | pass   |
+|  5 |    105 | Rahul   |   43 |   23 |    16 |    82 |    27.3333 | fail   |
+|  6 |    106 | Adhiraj |   73 |   34 |    35 |   142 |    47.3333 | pass   |
+|  7 |    107 | Anmol   |   54 |   46 |    25 |   125 |    41.6667 | fail   |
++----+--------+---------+------+------+-------+-------+------------+--------+
+7 rows in set (0.00 sec)
